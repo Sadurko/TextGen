@@ -1,0 +1,51 @@
+﻿<Window x:Class="TextGen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextGen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid Background="#e0e0e0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Margin="10" Grid.Column="0">
+            <TextBlock Text="Enter text (string {variable} will be replaced):" />
+            <TextBox x:Name="textInput" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" Height="100" />
+            
+            <TextBlock Text="Enter variables (separate them with coma):" />
+            <TextBox x:Name="variableInput" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" Height="50" />
+
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <CheckBox x:Name="anotherVariable" Margin="0,1,8,0" Checked="AddVariableCheckbox_Checked" Unchecked="AddVariableCheckbox_Unchecked" />
+                <TextBlock Text="Add another variable" />
+            </StackPanel>
+
+            <Grid Visibility="{Binding Source={x:Reference anotherVariable}, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                <TextBlock Text="Enter other variables (separate them with coma):" />
+                <TextBox x:Name="variable2Input" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" Height="50" />
+            </Grid>
+            
+            <Button Content="Generate Text" Click="GenerateTextButton_Click" Background="LightGray" />
+        </StackPanel>
+            
+        <StackPanel Margin="10"  Grid.Column="3" >
+            <Border BorderThickness="1" BorderBrush="Gray">
+                <ScrollViewer Height="330" Background="White">
+                    <TextBlock x:Name="resultText" Margin="5,0,5,0" TextWrapping="Wrap" />
+                </ScrollViewer>
+            </Border>
+
+            <Button Content="Copy text to clip board" Click="CopyTextButton_Click" Margin="0,10,0,0"  Background="LightGray"/>
+            <TextBlock x:Name="textCopy" Text="Text coppied" Visibility="Collapsed" />
+        </StackPanel>
+    </Grid>
+</Window>
