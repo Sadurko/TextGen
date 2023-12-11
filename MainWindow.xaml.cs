@@ -24,13 +24,13 @@ namespace TextGen
             if (!string.IsNullOrEmpty(inputText) && !string.IsNullOrEmpty(variablesInput))
             {
                 // Split variables
-                string[] variables = variablesInput.Split(',');
+                string[] variables = variablesInput.Split("\r\n");
 
                 string result = string.Empty;
 
                 if (!string.IsNullOrEmpty(variables2Input))
                 {
-                    string[] variables2 = variables2Input.Split(',');
+                    string[] variables2 = variables2Input.Split("\r\n");
 
                     string aux = string.Empty;
 
@@ -85,7 +85,7 @@ namespace TextGen
 
         private void AddVariableCheckbox_Checked(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }
